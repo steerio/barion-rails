@@ -47,20 +47,22 @@ module Barion
     end
 
     test 'user class can be configured and accept string only' do
-      assert_nil ::Barion.user_class
+      assert_nil ::Barion.user_class_name
       assert_raises ::ArgumentError do
-        ::Barion.user_class = []
+        ::Barion.user_class_name = []
       end
-      ::Barion.user_class = 'Object'
+      assert_nil ::Barion.user_class
+      ::Barion.user_class_name = 'Object'
       assert_kind_of ::Object, ::Barion.user_class
     end
 
     test 'item class can be configured and accept string only' do
-      assert_nil ::Barion.item_class
+      assert_nil ::Barion.item_class_name
       assert_raises ::ArgumentError do
-        ::Barion.item_class = []
+        ::Barion.item_class_name = []
       end
-      ::Barion.item_class = 'Object'
+      assert_nil ::Barion.item_class
+      ::Barion.item_class_name = 'Object'
       assert_kind_of ::Object, ::Barion.item_class
     end
 

@@ -32,6 +32,8 @@ Just create a file in `config/initializers/barion.rb` with the below content:
   shop.sandbox = true
   shop.acronym = ''
   shop.default_payee = ''
+  shop.callback_host = ''
+  shop.default_locale = 'en-US'
 end
 ```
 #### POSKey and PublicKey (default: empty)
@@ -48,7 +50,7 @@ You have to open the shop Details from the `Action` dropdown of your shop. Pleas
 #### Sandbox (default: true)
 It is **highly recommended** to use a Test shop first to tune the code first. That's why `sandbox` is set to **true** by default.
 
-#### Acronym (default: empyty)
+#### Acronym (default: empty)
 Acronym is used to generate the `payment_request_id` Barion requires to identify every payment request as the below code snippets shows. You can change this by overriding/decorating this method in your code.
 
 ```ruby
@@ -60,6 +62,15 @@ end
 Barion requires an e-mail address in every transaction to identify the recipient user of the transaction. The Barion wallet which has this e-mail address registeres will receives the money when the payment is completed by the payer.
 
 You can see this address in the Barion Shop interface below your shop icon on the top left corner.
+
+#### Callback host (Default: empty)
+Barion needs to make HTTP requests to your application to update the state of
+payments. In order to make this work, you need to set a host name here that your
+application is accessible at.
+
+#### Default locale (Default: hu-HU)
+The default locale for the payment UI that your users see. It is used if you
+don't specify one explicitly when creating your payment.
 
 ### Set up your database
 This gem comes with predefined models. To use them, you have to copy the migrations into your application and migrate them using:
@@ -78,13 +89,14 @@ mount ::Barion::Engine, at: "/barion"
 Once initialized you can create payments like below:
 ```ruby
 payment = ::Barion:Payment.new
-transaction = payment.transactions.build
+transaction = payment.payment_transactions.build
 item = transaction.items.build
 ```
 * You can find the properties of Payment here: https://docs.barion.com/Payment-Start-v2,
 
-* for the properties of Transaction see here: https://docs.barion.com/PaymentTransaction
-(*Note*: Transaction is used not just for starting the payment but to collect transaction details during the payment lifecycle.)
+* for the properties of PaymentTransaction see here: https://docs.barion.com/PaymentTransaction
+  (*Note*: PaymentTransaction is used not just for starting the payment but to
+  collect transaction details during the payment lifecycle.)
 
 * and for Item properties: https://docs.barion.com/Item
 
