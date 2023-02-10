@@ -17,7 +17,7 @@ gemspec
 # gem 'byebug', group: [:development, :test]
 gem 'annotate'
 gem 'codecov', require: false
-gem 'debase'
+gem 'debase', '0.2.5.beta2'
 gem 'factory_bot_rails'
 gem 'minitest-reporters', require: false
 gem 'overcommit'
@@ -26,3 +26,4 @@ gem 'ruby-debug-ide'
 gem 'simplecov', require: false
 gem 'simplecov-cobertura', require: false
 gem 'solargraph'
+gem 'rest-client'

@@ -22,7 +22,7 @@ Gem::Specification.new do |spec|
 
   spec.files = Dir['{app,config,db,lib}/**/*', 'MIT-LICENSE', 'Rakefile', 'README.md']
 
-  spec.add_dependency 'rails', '~> 6.1'
+  spec.add_dependency 'rails', '~> 7.0'
   spec.add_runtime_dependency 'rest-client', '~> 2.1'
 
   spec.add_development_dependency 'faker', '~> 2.15'
@@ -33,4 +33,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'vcr', '~>6.0'
   spec.add_development_dependency 'webmock', '~>3.12'
   spec.add_development_dependency 'yard', '~> 0.9'
+  spec.add_development_dependency 'sprockets-rails', '~> 3.4.2'
 end
