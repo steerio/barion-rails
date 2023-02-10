@@ -46,7 +46,7 @@ module Barion
     validates :sku, length: { maximum: 100 }
     validates :unit, presence: true, length: { maximum: 50 }
 
-    after_initialize :set_defaults
+    after_initialize :calculate_total
 
     def serialize_options
       {
@@ -77,12 +77,13 @@ module Barion
 
     private
 
-    def set_defaults
-      calculate_total
-    end
-
     def calculate_total
-      self.item_total = (quantity * unit_price.to_d)
+      (quantity * unit_price.to_d).tap do |sum|
+        if sum != item_total
+          self.item_total = sum
+          payment_transaction.total = nil if payment_transaction
+        end
+      end
     end
   end
 end

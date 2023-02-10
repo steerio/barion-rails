@@ -15,8 +15,8 @@
 #  transaction_type      :integer
 #  created_at            :datetime         not null
 #  updated_at            :datetime         not null
-#  payee_transactions_id :bigint
-#  payment_id            :bigint
+#  payee_transactions_id :integer
+#  payment_id            :integer
 #  pos_transaction_id    :string           not null
 #  related_id            :string
 #  transaction_id        :string
@@ -84,8 +84,7 @@ module Barion
     end
 
     def total=(value)
-      value = calc_item_totals if value.nil?
-      super(value)
+      super(value.nil? ? calculated_total : value)
     end
 
     def serialize_options
@@ -119,16 +118,14 @@ module Barion
       }
     end
 
-    protected
-
-    def calc_item_totals
+    def calculated_total
       items.sum(&:item_total)
     end
 
     private
 
     def calc_total(_item)
-      self.total = calc_item_totals
+      self.total = calculated_total
     end
   end
 end

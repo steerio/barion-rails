@@ -7,7 +7,7 @@
 #  id                      :integer          not null, primary key
 #  callback_url            :string(2000)
 #  card_holder_name_hint   :string(45)
-#  challenge_preference    :integer          default("no_preference")
+#  challenge_preference    :integer          default(0)
 #  checksum                :string           not null
 #  completed_at            :datetime
 #  created_at_barion       :datetime
@@ -16,7 +16,7 @@
 #  delayed_capture_until   :datetime
 #  fraud_risk_score        :integer
 #  funding_source          :integer
-#  funding_sources         :integer          default("all")
+#  funding_sources         :integer          default(0)
 #  gateway_url             :string(2000)
 #  guest_check_out         :boolean
 #  initiate_recurrence     :boolean
@@ -26,7 +26,7 @@
 #  payer_home_number       :string(30)
 #  payer_phone_number      :string(30)
 #  payer_work_phone_number :string(30)
-#  payment_type            :integer          default("immediate"), not null
+#  payment_type            :integer          default(0), not null
 #  payment_window          :string(6)
 #  pos_name                :string
 #  pos_owner_country       :string
@@ -34,7 +34,7 @@
 #  poskey                  :string           not null
 #  qr_url                  :string(2000)
 #  recurrence_result       :integer
-#  recurrence_type         :integer          default(NULL)
+#  recurrence_type         :integer          default(0)
 #  redirect_url            :string(2000)
 #  reservation_period      :integer
 #  reserved_until          :datetime

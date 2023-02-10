@@ -15,8 +15,8 @@
 #  transaction_type      :integer
 #  created_at            :datetime         not null
 #  updated_at            :datetime         not null
-#  payee_transactions_id :bigint
-#  payment_id            :bigint
+#  payee_transactions_id :integer
+#  payment_id            :integer
 #  pos_transaction_id    :string           not null
 #  related_id            :string
 #  transaction_id        :string
@@ -85,13 +85,12 @@ module Barion
     test 'total is mandatory and calculated if not set' do
       @transaction.items.first.quantity = 3
       @transaction.items.first.unit_price = 33
-      @transaction.items << create(
+      @transaction.items << build(
         :barion_item,
         quantity: 4,
-        unit_price: 12,
-        payment_transaction: @transaction
+        unit_price: 12
       )
-      assert_equal 147, @transaction.total
+      assert_equal 147, @transaction.total.to_i
       assert_equal '147.0', @transaction.as_json['Total']
       @transaction.total = 10
       assert_equal 10, @transaction.total
